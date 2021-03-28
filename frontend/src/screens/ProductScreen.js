@@ -1,13 +1,26 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
-import products from '../products'
 import Rating from '../components/Rating'
 
 //match is coming from the Route(path) from the App.js
 const ProductScreen = ({match}) => {
+    let id = match.params.id
+    const [product, setProduct] = useState([])
 
-const product = products.find(p => p._id === match.params.id)
+    
+    useEffect(() =>{
+
+        const fetchproduct = async() =>{
+            // instead of res.data you can use {data}
+           const {data} = await axios.get(`/api/products/${id}`)
+           setProduct(data)
+        }
+        fetchproduct()
+    }, [id])
+
+//const product = products.find(p => p._id === match.params.id)
 
     return (
         <>
