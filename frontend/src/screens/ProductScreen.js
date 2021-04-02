@@ -1,24 +1,28 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../components/Rating'
+import {listProductDetails} from '../actions/productActions'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 //match is coming from the Route(path) from the App.js
 const ProductScreen = ({match}) => {
+    const dispatch = useDispatch()
+
+
     let id = match.params.id
-    const [product, setProduct] = useState([])
+   // const [product, setProduct] = useState([])
 
-    
     useEffect(() =>{
+        dispatch(listProductDetails(id))
+    }, [dispatch, id])
 
-        const fetchproduct = async() =>{
-            // instead of res.data you can use {data}
-           const {data} = await axios.get(`/api/products/${id}`)
-           setProduct(data)
-        }
-        fetchproduct()
-    }, [id])
+
+    const productDetails = useSelector(state => state.productDetail)
+
+    const {loading, error, product}= productDetails
 
 //const product = products.find(p => p._id === match.params.id)
 
@@ -27,7 +31,12 @@ const ProductScreen = ({match}) => {
         <Link className='btn btn-light my-3' to ='/'>
             Go Back
         </Link>
-        <Row>
+        { loading 
+        ? <Loader/> 
+        : error 
+        ? <Message variant='danger'>{error}</Message>
+        : (
+            <Row>
             <Col md={6}>
                 <Image src={product.image} alt={product.name} fluid/>
             </Col>
@@ -88,6 +97,8 @@ const ProductScreen = ({match}) => {
             
             </Col>
         </Row>
+        )}
+        
         </>
     )
 }

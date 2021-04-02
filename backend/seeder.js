@@ -7,6 +7,7 @@ const Product = require('./models/productModel')
 const Order = require('./models/orderModel')
 const connectDB = require('./config/db')
 
+//NEVER RUN THIS FILE ALONE
 
 dotenv.config()
 connectDB()
