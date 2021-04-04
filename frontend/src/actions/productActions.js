@@ -49,9 +49,7 @@ export const listProductDetails = (id) => async(dispatch) => {
         //Generic and Custom error message
         dispatch({
             type: PRODUCT_DETAIL_FAIL,
-            payload: error.response && error.response.data.message 
-            ? error.response.data.message 
-            : error.message
+            payload: error.response.data && error.response.data
         })
         
     }

@@ -13,8 +13,8 @@ const Product = require('../models/productModel')
                 res.json(product)
             }
             catch(error){
-                res.status(404)
-                throw new Error('Product Not Found')
+                res.status(404).send('Product Not Found')
+                // throw new Error('Product Not Found')
             }
     })
 

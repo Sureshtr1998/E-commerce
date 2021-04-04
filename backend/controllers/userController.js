@@ -18,8 +18,9 @@ const generateToken = require('../utils/generateToken')
                 token: generateToken(user._id),
             })
         } else {
-            res.status(401)
-            throw new Error('Invalid Email & Password')
+            res.status(401).send('Invalid Email & Password')
+            
+            //throw new Error('Invalid Email & Password')
         }
        
     })
@@ -31,8 +32,8 @@ const generateToken = require('../utils/generateToken')
         const userExists = await User.findOne({ email: email})
 
         if(userExists){
-            res.status(400)
-            throw new Error("User already exists")
+            res.status(400).send("User already exists")
+            //throw new Error("User already exists")
         }
 
         const user = await User.create({
@@ -51,8 +52,8 @@ const generateToken = require('../utils/generateToken')
             })
         }
         else{
-            res.status(400)
-            throw new Error('Invalid User data')
+            res.status(400).send('Invalid User data')
+            // throw new Error('Invalid User data')
         }
        
     })
@@ -68,8 +69,8 @@ const generateToken = require('../utils/generateToken')
             })
 
         } else {
-             res.status(404)
-             throw new Error('User Not Found')
+             res.status(404).send('User Not Found')
+            //  throw new Error('User Not Found')
             }
     })
 
