@@ -20,7 +20,7 @@ const PlaceOrderScreen = ({history}) => {
 
     cart.itemsPrice = addDecimals(cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0))
     
-    cart.shippingPrice = addDecimals(Number(cart.itemsPrice) > 1000 ? 0: 100)
+    cart.shippingPrice = addDecimals(Number(cart.itemsPrice) > 1000 ? 10: 100)
 
     cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice)))
 
@@ -31,9 +31,9 @@ const PlaceOrderScreen = ({history}) => {
 
     useEffect(() =>{
         if(success) {
-            history.push('/order/order.id')
+            history.push(`/order/${order._id}`)
         }
-    }, [history,success ])
+    }, [history,success,order ])
     
     const placeOrderHandler = () =>{
 

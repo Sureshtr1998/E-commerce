@@ -32,4 +32,41 @@ const Order = require('../models/orderModel')
 
     })
 
-module.exports = {addOrderItems}
+
+
+
+const getOrderById = asyncHandler(async(req,res) =>{
+    //Name and email will be taken from user model and attached it to here
+       const order = await Order.findById(req.params.id).populate('user', 'name email')
+       if(order){
+           res.json(order)
+       } else {
+           res.send('Order not found')
+       }
+
+     })
+
+
+const updateOrderToPaid = asyncHandler(async(req,res) =>{
+        //Name and email will be taken from user model and attached it to here
+           const order = await Order.findById(req.params.id)
+           if(order){
+               order.isPaid = true
+               order.paidAt= Date.now()
+            //    order.paymentResult={
+            //        id: req.body.id,
+            //        status: req.body.status,
+            //        update_time: req.body.update_time,
+            //        email: req.body.payer.email_address
+            //    }
+
+               const updateOrder = await order.save()
+
+               res.json(updateOrder)
+           } else {
+               res.send('Order not found')
+           }
+    
+         })
+
+module.exports = {addOrderItems, getOrderById, updateOrderToPaid}

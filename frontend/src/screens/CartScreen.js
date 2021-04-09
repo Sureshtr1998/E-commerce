@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Row, Col, ListGroup, Image, Form, Button, Card} from 'react-bootstrap'
 import {addToCart, removeFromCart} from '../actions/cartActions'
 import Message from '../components/Message'
-
+import {ORDER_PAY_SUCCESS_RESET} from '../constants/orderConstants'
 const CartScreen = ({match, location, history}) => {
 
     const dispatch = useDispatch()
@@ -21,11 +21,13 @@ const CartScreen = ({match, location, history}) => {
     useEffect(() => {
         if(id) {
      dispatch(addToCart(id,qty))
+     dispatch({type:ORDER_PAY_SUCCESS_RESET})
         }
     }, [dispatch, id, qty])
 
     const removeFromCartHandler = (id) =>{
         dispatch(removeFromCart(id))
+        dispatch({type: ORDER_PAY_SUCCESS_RESET})
     }
 
     const checkoutHandler = () => {
