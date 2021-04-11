@@ -28,9 +28,7 @@ const orderSchema = mongoose.Schema({
         country: {type: String, required: true},
     },
     paymentMethod:{
-        type: String,
-        required: true,
-      
+        type: String,      
     },
     paymentResult:{
         id: {type: String},
@@ -63,6 +61,12 @@ const orderSchema = mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    paidFormattedTime:{
+        type:String
+    },
+    payment_id :{
+        type: String,
     },
     paidAt:{
         type:Date

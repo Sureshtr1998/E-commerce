@@ -49,10 +49,16 @@ const getOrderById = asyncHandler(async(req,res) =>{
 
 const updateOrderToPaid = asyncHandler(async(req,res) =>{
         //Name and email will be taken from user model and attached it to here
+        let time = Date();
+        const today = time.toString()
+           const payment_id = req.body.paymentId
            const order = await Order.findById(req.params.id)
+           //console.log(req.body.paymentId,order )
            if(order){
                order.isPaid = true
-               order.paidAt= Date.now()
+               order.paidAt= Date.now();
+               order.paidFormattedTime = today
+               order.payment_id = payment_id
             //    order.paymentResult={
             //        id: req.body.id,
             //        status: req.body.status,
@@ -69,4 +75,12 @@ const updateOrderToPaid = asyncHandler(async(req,res) =>{
     
          })
 
-module.exports = {addOrderItems, getOrderById, updateOrderToPaid}
+const getMyOrders = asyncHandler(async(req,res) =>{
+    const orders = await Order.find({user: req.user._id})
+    res.json(orders)
+})
+    
+
+
+
+module.exports = {addOrderItems, getOrderById, updateOrderToPaid, getMyOrders}

@@ -17,11 +17,11 @@ const ShippingScreen = ({history}) => {
     const submithandler = (e) => {
         e.preventDefault()
         dispatch(saveShippingAddress({address,city,postalCode,country }))
-        history.push('/payment')
+        history.push('/placeorder')
     }
     return (
         <FormContainer>
-            <CheckOutSteps step2/>
+            <CheckOutSteps step2 />
             <h1>Shipping</h1>
             <Form onSubmit={submithandler}>
             <Form.Group controlId='address'>

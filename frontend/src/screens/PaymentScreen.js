@@ -24,7 +24,7 @@ const PaymentScreen = ({history}) => {
     }
     return (
         <FormContainer>
-            <CheckOutSteps step2 step3/>
+            <CheckOutSteps step2 step3 step4/>
             <h1>Payment Method</h1>
             <Form onSubmit={submithandler}>
                 <Form.Group>

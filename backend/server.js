@@ -5,6 +5,7 @@ const productRoutes   = require('./routes/productRoutes')
 const userRoutes   = require('./routes/userRoutes')
 const orderRoutes   = require('./routes/orderRoutes')
 const {notFound, errorHandler} = require('./middleware/errorMiddleware')
+const Razorpay = require('razorpay')
 
 dotenv.config()
 
@@ -14,6 +15,10 @@ const app = express()
 
 app.use(express.json())
 
+var razorpay = new Razorpay({
+    key_id: process.env.REACT_APP_KEY_ID,
+    key_secret: process.env.KEY_SECRET
+})
 
 app.get('/', (req, res) =>{
     res.send("API is running")
@@ -23,6 +28,10 @@ app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 
+
+app.post('/razorpay', async (req, res) =>{
+    
+})
 //app.use(notFound)
 //app.use(errorHandler)
 

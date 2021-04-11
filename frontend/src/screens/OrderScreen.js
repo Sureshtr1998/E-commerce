@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
-import GooglePayButton from '@google-pay/button-react'
-import {Button, Row, Col, ListGroup, Image, Card} from 'react-bootstrap'
+// import GooglePayButton from '@google-pay/button-react'
+import { Row, Col, ListGroup, Image, Card, Button} from 'react-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -27,18 +27,53 @@ const OrderScreen = ({match}) => {
     const orderPay = useSelector(state => state.orderPay)
     const {loading:loadingPay, success: successPay} = orderPay
 
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+
 
     useEffect(() =>{
+        const script = document.createElement('script')
+        script.type= 'text/javascript'
+        script.src = "https://checkout.razorpay.com/v1/checkout.js"
+        script.async = true
+        document.body.appendChild(script)
         dispatch({type: ORDER_PAY_RESET})
-        if(!order || successPay){
         dispatch(getOrderDetails(orderId))
-        }
-    }, [dispatch, orderId, successPay, order])
+        
+    }, [dispatch, orderId,successPay])
     
 
-    const successPaymentHandler = (paymentRequest) =>{
-        dispatch(payOrder(orderId))
-        console.log(paymentRequest)
+    // const successPaymentHandler = (paymentRequest) =>{
+    //     dispatch(payOrder(orderId))
+    //     console.log(paymentRequest)
+    // }
+   
+    const options =  {
+    key: 'rzp_test_rEmSmAdMb9GO0u', // Enter the Key ID generated from the Dashboard
+    amount: String(order?.totalPrice * 100), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    currency: "INR",
+    name: "Test",
+    description: "Description here",
+    
+    handler: (response) =>{
+        console.log(response)
+        dispatch(payOrder(orderId, response.razorpay_payment_id))
+      
+    },
+    prefill: {
+        name: userInfo?.name,
+        email:userInfo?.email,
+        contact: "9632972404",
+    },
+    notes: {
+        address: "Bangalore"
+    },
+}
+
+    const razorpayhandler = (e) =>{
+        let rzp1 = new window.Razorpay(options);
+        rzp1.open();
+        e.preventDefault();
     }
 
     return loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message> 
@@ -66,7 +101,7 @@ const OrderScreen = ({match}) => {
                             <strong>Method: </strong>
                             {order.paymentMethod}
                             </p>
-                            {order.isPaid ? <Message variant='success'>Paid on {order.paidAt}</Message>
+                            {order.isPaid ? <Message variant='success'>Paid on {order.paidFormattedTime}</Message>
                             :<Message variant='danger'>Not Paid</Message>}
                         </ListGroup.Item>
                         <ListGroup.Item>
@@ -139,7 +174,8 @@ const OrderScreen = ({match}) => {
                                     <ListGroup.Item>
                                         {loadingPay ? <Loader/> 
                                         : (
-                                            <GooglePayButton
+                                            <>
+                                            {/* <GooglePayButton
                                             environment='TEST'
                                             paymentRequest={{
                                                 apiVersion: 2,
@@ -184,7 +220,9 @@ const OrderScreen = ({match}) => {
                                                 buttonColor= 'black'
                                                 buttonType='Buy'
 
-                                            />
+                                            /> */}
+                                            <Button type='button' className='btn-block' onClick={(e) => razorpayhandler(e)}><i className="fas fa-gem"></i>  <strong>Pay  ₹ {order.totalPrice} now  </strong></Button>
+                                        </>
                                         )
                                         }
                                 </ListGroup.Item>
