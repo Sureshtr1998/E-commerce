@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 const generateToken = require('../utils/generateToken')
+const Order = require('../models/orderModel')
 
 
     const authUser = asyncHandler(async(req,res) =>{
@@ -99,4 +100,65 @@ const generateToken = require('../utils/generateToken')
             }
     })
 
-module.exports = {authUser, getUserProfile, registerUser, updateUserProfile}
+
+const getUsers = asyncHandler(async(req,res) =>{
+        const users = await User.find({})
+
+        res.json(users)
+       
+    })
+
+
+    const deleteUser = asyncHandler(async(req,res) =>{
+        const user = await User.findById(req.params.id)
+        await Order.deleteMany({user: req.params.id})
+
+        if(user){
+            await user.remove()
+            res.send('User Removed')
+        } else {
+            res.json(404).send('User Not Found')
+        }
+       
+    })
+
+
+    const getUserById = asyncHandler(async(req,res) =>{
+        const user = await User.findById(req.params.id).select('-password')
+       
+       if(user){
+            res.json(user)
+       } else {
+        res.json(404).send('User Not Found')
+    }
+       
+    })
+
+
+
+    const updateUser = asyncHandler(async(req,res) =>{
+
+        const user = await User.findById(req.params.id)
+        if(user){
+            user.name = req.body.name || user.name
+            user.email = req.body.email || user.email
+            user.isAdmin = req.body.isAdmin 
+ 
+        
+            const updatedUser = await user.save()
+            res.status(200).json({
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                isAdmin: updatedUser.isAdmin,
+            })
+        } else {
+             res.status(404).send('User Not Found')
+            //  throw new Error('User Not Found')
+            }
+    })
+
+
+
+
+module.exports = {authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser, getUserById, updateUser}
