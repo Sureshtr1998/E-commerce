@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
@@ -10,17 +10,14 @@ import Message from '../components/Message'
 //match is coming from the Route(path) from the App.js
 const ProductScreen = ({history, match}) => {
     const dispatch = useDispatch()
-
     const [qty, setQty] = useState(1)
+    
     const productDetails = useSelector(state => state.productDetail)
     const {loading, error, product}= productDetails
 
+    console.log(productDetails)
     let id = match.params.id
    // const [product, setProduct] = useState([])
-
-    useEffect(() =>{
-        dispatch(listProductDetails(id))
-    }, [dispatch, id])
 
 
 const addToCartHandler = () => {
@@ -28,8 +25,12 @@ const addToCartHandler = () => {
 }
     
 
-//const product = products.find(p => p._id === match.params.id)
+useEffect(() =>{
+    dispatch(listProductDetails(id))
+}, [dispatch, id])
 
+
+//const product = products.find(p => p._id === match.params.id)
     return (
         <>
         <Link className='btn btn-light my-3' to ='/'>

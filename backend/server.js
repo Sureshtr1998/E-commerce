@@ -1,9 +1,11 @@
 const express = require('express')
+const path = require('path')
 const dotenv = require('dotenv')
 const connectDB   = require('./config/db')
 const productRoutes   = require('./routes/productRoutes')
 const userRoutes   = require('./routes/userRoutes')
 const orderRoutes   = require('./routes/orderRoutes')
+const uploadRoutes   = require('./routes/uploadRoutes')
 const {notFound, errorHandler} = require('./middleware/errorMiddleware')
 const Razorpay = require('razorpay')
 
@@ -27,11 +29,15 @@ app.get('/', (req, res) =>{
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
+app.use('/api/upload', uploadRoutes)
 
+//This makes uploads folder as static so we can access from the browser 
+//let __dirname = path.resolve()
+app.use('/uploads', express.static(path.join(path.resolve(), '/uploads')))
 
-app.post('/razorpay', async (req, res) =>{
+// app.post('/razorpay', async (req, res) =>{
     
-})
+// })
 //app.use(notFound)
 //app.use(errorHandler)
 

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import {LinkContainer} from 'react-router-bootstrap'
 import {Table, Button} from 'react-bootstrap'
+import swal from 'sweetalert'
 import {useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -33,7 +34,22 @@ const UserListScreen = ({history}) => {
     }, [dispatch, history, userInfo, successDelete]) 
 
     const deleteHandler = (id) =>{
-        dispatch(deleteUser(id))
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to restore the user profile!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                dispatch(deleteUser(id))
+              swal("User profile has been removed", {
+                icon: "success",
+              });
+            }
+          });
+        
     }
 
     return (
