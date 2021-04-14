@@ -54,7 +54,6 @@ const ProductEditScreen = ({match, history}) => {
 
     const uploadFIleHandler = async (e) => {
         const file = e.target.files[0]
-        console.log(file,"HII")
         const formData = new FormData()
         formData.append('image', file)
         setUploading(true)
