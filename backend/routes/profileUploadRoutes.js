@@ -41,6 +41,7 @@ router.post('/', upload.single('File'), async(req, res) =>{
     const profile = await Profile.find({})
     profile[0].cv = fname[len - 1]
     await profile[0].save()
+    res.status(201).send("Successfully Updated")
 })
 
 module.exports = router

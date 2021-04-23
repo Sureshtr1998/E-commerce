@@ -33,6 +33,7 @@ app.use('/api/mycv', profileUploadRoutes)
 app.use('/api/myprofile', profileRoutes)
 
 app.use('/uploads', express.static(path.join(path.resolve(), '/uploads')))
+app.use('/frontend/public/CV', express.static(path.join(path.resolve(), '/frontend/public/CV')))
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(path.resolve(), '/frontend/build')))
