@@ -23,7 +23,10 @@ const Header = () => {
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
   <Route render={({history, match}) => <SearchBox match={match} history={history}/>}/>
-    <Nav className="ml-auto">    
+  <Nav className="ml-auto">
+  <LinkContainer className='mr-5 pr-5' to ='/my-profile-suresh'> 
+      <Nav.Link ><i className='fas fa-user'></i> My Profile</Nav.Link>
+  </LinkContainer>
     <LinkContainer to = '/cart'> 
       <Nav.Link className='py-1.5'>
           <i className='pl-10 fas fa-shopping-cart'></i>
@@ -58,6 +61,10 @@ const Header = () => {
 
       <LinkContainer to ='/admin/orderlist'>
         <NavDropdown.Item>Orders</NavDropdown.Item>
+      </LinkContainer>
+
+      <LinkContainer to ='/admin/myprofilelist'>
+        <NavDropdown.Item>My Profile</NavDropdown.Item>
       </LinkContainer>
       
        </NavDropdown>

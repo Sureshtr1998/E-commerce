@@ -18,6 +18,8 @@ import ProductListScreen from './screens/ProductListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
+import MyProfileScreen from './screens/MyProfileScreen'
+import MyProfileListScreen from './screens/MyProfileListScreen'
 
 
 const App = () => {
@@ -45,6 +47,8 @@ const App = () => {
       <Route path = '/search/:keyword' component = {HomeScreen} exact/>  
       <Route path = '/page/:pageNumber' component = {HomeScreen} exact />  
       <Route path = '/search/:keyword/page/:pageNumber' component = {HomeScreen} exact />  
+      <Route path = '/my-profile-suresh' component = {MyProfileScreen} exact/>  
+      <Route path = '/admin/myprofilelist' component = {MyProfileListScreen} exact/>  
       <Route path = '/' component = {HomeScreen} exact/>  
     </Container>
     </main>

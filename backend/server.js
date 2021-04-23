@@ -6,6 +6,8 @@ const productRoutes   = require('./routes/productRoutes')
 const userRoutes   = require('./routes/userRoutes')
 const orderRoutes   = require('./routes/orderRoutes')
 const uploadRoutes   = require('./routes/uploadRoutes')
+const profileUploadRoutes   = require('./routes/profileUploadRoutes')
+const profileRoutes   = require('./routes/profileRoutes')
 const {notFound, errorHandler} = require('./middleware/errorMiddleware')
 const Razorpay = require('razorpay')
 
@@ -27,6 +29,8 @@ app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/upload', uploadRoutes)
+app.use('/api/mycv', profileUploadRoutes)
+app.use('/api/myprofile', profileRoutes)
 
 app.use('/uploads', express.static(path.join(path.resolve(), '/uploads')))
 

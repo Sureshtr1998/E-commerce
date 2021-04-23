@@ -1,7 +1,9 @@
 main{
     min-height: 80vh;
 }
-
+html {
+	scroll-behavior: smooth;
+}
 h3{
     margin: 1rem 0;
 }
@@ -41,3 +43,88 @@ h2{
 .carousel a {
     margin: 0 auto
 }
+
+.myprofile{
+    margin-left: -140%; 
+    background-color: rgb(255, 255, 255);
+    page-break-before: always;
+}
+.content{
+    margin-left: auto;
+}
+.activedisp{
+    color: rgb(211, 164, 77);
+}
+/* Sidebar Navigation */
+.section-nav {
+	border-right: 3px solid rgb(211, 164, 77);
+}
+.section-nav a {
+    position: relative;
+    right: 1%;
+	text-decoration: none;
+	display: block;
+	padding: .125rem 0;
+	transition: all 50ms ease-in-out; /* 💡 This small transition makes setting of the active state smooth */
+}
+
+.section-nav a:hover,
+.section-nav a:focus {
+	color: rgb(211, 164, 77);
+}
+
+hr{
+ display: block; 
+  height: 30px; 
+  margin-top: 5px; 
+  border-style: solid; 
+  border-color: rgb(228, 160, 33); 
+  border-width: 0 0 1px 0; 
+  border-radius: 40px; 
+}
+
+.font {
+    position: relative;
+    left: 10%;
+    top:50px;
+    display: inline-block;
+}
+
+.fontfam {
+    font-family: "Lucida Handwriting", Cursive;
+    text-transform: capitalize;
+}
+.btnp {
+    margin-left: 5%;
+    position: relative;
+    top: 50px;
+    left: 6%;
+    border-radius: 40px;
+}
+
+.btnp:hover{
+    background-color:rgb(228, 160, 33) ;
+}
+u{
+    padding-bottom:10px;
+  text-decoration:none;
+  border-bottom:3px solid rgb(228, 160, 33);
+}
+
+@media only screen and (max-width: 1000px) {
+    .myprofile  {
+         display: none;
+      }
+      hr{
+          visibility: hidden;
+      }
+      p u{
+        visibility: hidden;
+      }
+      .hid {
+        visibility: hidden;
+      }
+
+  }
+
+ 

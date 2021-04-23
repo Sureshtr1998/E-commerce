@@ -30,7 +30,6 @@ export const listProducts = (keyword = '', pageNumber='') => async(dispatch) => 
         })
         // instead of res.data you can use {data}
         const {data} = await axios.get(`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`)
-        console.log(data)
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
             payload: data
@@ -54,7 +53,6 @@ export const listProductDetails = (id) => async(dispatch) => {
         })
         // instead of res.data you can use {data}
         const {data} = await axios.get(`/api/products/${id}`)
-        console.log(data)
         dispatch({
             type: PRODUCT_DETAIL_SUCCESS,
             payload: data
@@ -191,7 +189,6 @@ export const listTopProducts = () => async(dispatch) => {
         })
         // instead of res.data you can use {data}
         const {data} = await axios.get(`/api/products/top`)
-        console.log(data)
         dispatch({
             type: PRODUCT_TOP_SUCCESS,
             payload: data
