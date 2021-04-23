@@ -13,6 +13,7 @@ const MyProfileScreen = () => {
     const [yrsofexp, setYrsofexp] = useState(2)
     const [min, setMin] = useState(12)
     const [max, setMax] = useState(15)
+    const [pdf, setPdf] = useState('')
 
 
     const myProfileFetchDetails = useSelector(state => state.myProfileFetchDetails)
@@ -31,7 +32,7 @@ const MyProfileScreen = () => {
             setYrsofexp(profile[0].yrs)
             setMin(profile[0].min)
             setMax(profile[0].max)
-            console.log(profile)
+            setPdf(profile[0].cv)
         }
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -118,7 +119,7 @@ const MyProfileScreen = () => {
                 I build clean, appending and functional interfaces <br></br>
                 which comply with the latest web standards.</p>
 
-                <Button  href='CV/CV.pdf' download  variant="outline-dark" className='btnp dcv'><i className="fas fa-download"></i>  Download CV </Button>          
+                <Button  href={`CV\\${pdf}`} download  variant="outline-dark" className='btnp dcv'><i className="fas fa-download"></i>  Download CV </Button>          
                 <Button href='#portfolio'  variant="outline-dark" className='btnp'> <i className='fas fa-briefcase'/>  Portfolio</Button>
 
                 </div>
@@ -156,7 +157,7 @@ const MyProfileScreen = () => {
             <Card.Title><u>My Career Journey</u></Card.Title>
             <Card.Text className='py-2'>
                Being a BCA graduate I always had passion to be a freelancer.
-               Well as usual things didn't come up in my way,<br></br> I couldn't be able to get sufficient clients being a fresher, so ended up in Wipro.
+               Well as usual things didn't come up in my way,<br></br> I couldn't get sufficient clients being a fresher, so ended up in Wipro.
                <br></br>It being a giant IT company in the initial stages I had to fight to get into Web development, I was in different technologies from SAP Ariba to Python.
                <br></br>Gained tons of exposure and knowledge apart from Web Development.
                <br></br> With those experience (thanks to) now I am trying to follow my dreams again with having lots of confidence and knowledge.
@@ -401,9 +402,9 @@ const MyProfileScreen = () => {
                 <Card.Title>A Quick Summary</Card.Title>
                 <Card.Text>
                    This is an E-Commerce web application.
-                   Here an user can be able to track his order, currently admin is having access to mark orders as delivered or not.
+                   Here an user will be able to track his order, currently admin is having access to mark orders as delivered or not.
                    A product can be rated by the user only once per the product by providing comments. And top 3 products will 
-                   be visible in the carousel, I've built this app from scratch, I am happy to improve this app as and when I gain my experince.
+                   be visible in the carousel, I've built this app from scratch, I am happy to improve this app as and when I gain my experience.
                    I am open for any type of feedback.
                    <br></br><br></br><u>Thanks</u>
                 </Card.Text>

@@ -35,9 +35,12 @@ const upload = multer({
     }
 })
 //single for single image
-router.post('/', upload.single('File'), (req, res) =>{
-    Profile.cv = `/${req.file.path}`
-    res.send(`/${req.file.path}`)
+router.post('/', upload.single('File'), async(req, res) =>{
+    const fname = req.file.path.split('\\')
+    const len = fname.length
+    const profile = await Profile.find({})
+    profile[0].cv = fname[len - 1]
+    await profile[0].save()
 })
 
 module.exports = router

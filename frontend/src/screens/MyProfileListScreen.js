@@ -26,14 +26,18 @@ const MyProfileListScreen = ({history}) => {
 
     useEffect(() =>{
         setUploading(true)
-        if(profile){
+        console.log(profile)
+        if(!profile || !profile?.length)
+        {
+        dispatch(fetchProfileDetails())
+        //setAge(profile[0]?.age)
+        }
+        else{
             setAge(profile[0].age)
             setYrsofexp(profile[0].yrs)
             setMin(profile[0].min)
             setMax(profile[0].max)
-        }
-        else{
-            dispatch(fetchProfileDetails())
+            console.log(profile)
         }
     }, [dispatch, profile])
 
