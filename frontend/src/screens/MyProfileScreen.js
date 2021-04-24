@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { Row, Col, ListGroup, Image, Card, Button, ProgressBar, CardDeck} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {fetchProfileDetails} from '../actions/myProfile'
+import axios from 'axios'
 
 
 const MyProfileScreen = () => {   
@@ -19,6 +20,16 @@ const MyProfileScreen = () => {
     const myProfileFetchDetails = useSelector(state => state.myProfileFetchDetails)
     const {profile} = myProfileFetchDetails
     
+    const downloadCV = async() => {
+        const {data} = await axios.get('/api/mycv', { responseType: 'blob' })
+        const element = document.createElement("a");
+       // const file = new Blob([data], {type: "application/pdf"});
+        const file = data
+        element.href = URL.createObjectURL(file);
+        element.download = 'Suresh_CV.pdf';
+        document.body.appendChild(element); // Required for this to work in FireFox
+        element.click();
+    }
 
     useEffect(() => {
         console.log("hi")
@@ -118,8 +129,8 @@ const MyProfileScreen = () => {
                  specializing using  interface Design and Development. <br></br> 
                 I build clean, appending and functional interfaces <br></br>
                 which comply with the latest web standards.</p>
-
-                <Button  href={`CV\\${pdf}`} download  variant="outline-dark" className='btnp dcv'><i className="fas fa-download"></i>  Download CV </Button>          
+  
+                <Button  onClick={downloadCV}  variant="outline-dark" className='btnp dcv'><i className="fas fa-download"></i> Download CV </Button>             
                 <Button href='#portfolio'  variant="outline-dark" className='btnp'> <i className='fas fa-briefcase'/>  Portfolio</Button>
 
                 </div>

@@ -7,7 +7,7 @@ const router= express.Router()
 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
-        cb(null, 'frontend/public/CV')
+        cb(null, 'uploads/')
     },
     filename(req, file, cb){
         //null for the error in cb
@@ -42,6 +42,10 @@ router.post('/', upload.single('File'), async(req, res) =>{
     profile[0].cv = fname[len - 1]
     await profile[0].save()
     res.status(201).send("Successfully Updated")
+})
+
+router.get('/', (req, res) =>{
+    res.sendFile(path.resolve()+'/uploads/CV.pdf')
 })
 
 module.exports = router
